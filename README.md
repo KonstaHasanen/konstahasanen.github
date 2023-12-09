@@ -42,7 +42,9 @@
 - Google autentikointi
 - Metodit tiedon manipuloimiseen
 - **Koodi esimerkkejä oppimiskokemuksista:**
-`````// Nodemailerin konfiguraatio
+
+`````
+// Nodemailerin konfiguraatio
 const transporter = nodemailer.createTransport({
   host: 'smtp.gmail.com',
   port: 587,
@@ -114,7 +116,9 @@ const UserController = {
       console.error('User registration failed:', error);
       res.status(500).send('User registration failed.');
     }
-  },`````
+  },
+
+`````
   
 
 
