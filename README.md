@@ -23,7 +23,7 @@
 ## Taidot
 
 - **Ohjelmointikielet:** JavaScript
-- **Frontend-kehitys:** HTML, CSS, Sveöte
+- **Frontend-kehitys:** HTML, CSS, Svelte
 - **Backend-kehitys:** Node.js, Express
 - **Tietokannat:** MongoDB, MySQL
 - **Pilvipalvelut:** AWS
