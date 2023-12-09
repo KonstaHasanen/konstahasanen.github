@@ -43,6 +43,7 @@
   - Metodit tiedon manipuloimiseen
 - **Koodi esimerkkejä oppimiskokemuksista:**
   - Nodemailerin käyttöönotto rekisteröinnin yhteydessä. Tarkoituksena, että käyttäjä vahvistaa käyttämänsä sähköpostiosoitteen klikkaamalla sähköpostiin tulevaa linkkiä rekisteröitymisen jälkeen, jolloin voi vasta käyttää tunnuksia kirjautumiseen. Toiminnallisuus on toteutettu käyttämällä MAP-tietorakennetta, jolloin käyttäjän tiedot varastoidaan väliaikaisesti siihen asti, kunnes sähköposti on vahvistettu.
+
 `````
 // Nodemailerin konfiguraatio
 const transporter = nodemailer.createTransport({
