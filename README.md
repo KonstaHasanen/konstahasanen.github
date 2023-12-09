@@ -37,12 +37,12 @@
 - **Sisältö:** Koulutusohjelmaan kuuluva noin 4kk mittainen sovelluskehitysprojekti, jossa tarkoituksena oli rakentaa toimiva sovelluskokonaisuus. Projekti toteutettiin viiden hengen ryhmissä Scrum projektinhallinta menetelmää hyödyntäen. Ryhmämme rakensi tapahtumasovelluksen, jossa vastasin backendistä, testauksesta sekä pilvipalveluista. 
 - **Käytetyt tekniikat ja työkalut:** Backend toteutettiin käyttämllä node.js, express, MongoDB stäckkiä. Pilvipalveluinfastruktuuri rakennettiin AWS:n palveluita hyödyntäen, joita olivat S3, Elastic Beanstalk sekä CloudFront. Sovelluskokonaisuutta testattiin Cypressillä.
 - **Saavutukset ja oppimiskokemukset:**
-- S3 bucket käyttöönotto backendsovellukseen
-- Nodemailerin käyttö sähköpostin vahvistamiseen rekisteröinnin yhteydessä
-- Google autentikointi
-- Metodit tiedon manipuloimiseen
+  - S3 bucket käyttöönotto backendsovellukseen
+  - Nodemailerin käyttö sähköpostin vahvistamiseen rekisteröinnin yhteydessä
+  - Google autentikointi
+  - Metodit tiedon manipuloimiseen
 - **Koodi esimerkkejä oppimiskokemuksista:**
-
+  - Nodemailerin käyttöönotto rekisteröinnin yhteydessä. Tarkoituksena, että käyttäjä vahvistaa käyttämänsä sähköpostiosoitteen klikkaamalla sähköpostiin tulevaa linkkiä rekisteröitymisen jälkeen, jolloin voi vasta käyttää tunnuksia kirjautumiseen. Toiminnallisuus on toteutettu käyttämällä MAP-tietorakennetta, jolloin käyttäjän tiedot varastoidaan väliaikaisesti siihen asti, kunnes sähköposti on vahvistettu.
 `````
 // Nodemailerin konfiguraatio
 const transporter = nodemailer.createTransport({
