@@ -45,6 +45,100 @@
   - Google autentikointi
   - Metodit tiedon manipuloimiseen
 - **Koodi esimerkkejä oppimiskokemuksista:**
+  - S3 bucketin käyttöönotto, jotta voidaan tallentaa kuvia tapahtuman lisäämisen yhteydessä. Toiminnallisuuden totetuttaminen vaati S3 bucketin konfiguraatiota AWS:n puolella sekä backendsovelluksessa. Backendsovellukseen luotiin awsConfig.js niminen tiedosto, jossa tehtiin uusi S3Client, jota voidaan myöhemmin käyttää tapahtuman lisäämismetodissa.
+
+  - awsConfig.js tiedoston sisältö
+
+`````
+const { S3Client } = require('@aws-sdk/client-s3');
+require('dotenv').config();
+
+const bucketRegion = process.env.BUCKET_REGION;
+const accessKey = process.env.ACCESS_KEY;
+const secretAccessKey = process.env.SECRET_ACCESS_KEY;
+
+const s3 = new S3Client({
+  credentials: {
+    accessKeyId: accessKey,
+    secretAccessKey: secretAccessKey,
+  },
+  region: bucketRegion,
+});
+
+module.exports = {
+  s3,
+};
+
+`````
+  - Tapahtuman lisäämiseen käytettävä addEvent metodi, jossa käytössä S3Client
+
+`````
+ addEvent: async (req, res) => {
+    try {
+      if (req.file) {
+        const imageFile = req.file;
+
+        const uploadParams = {
+          Bucket: bucketName,
+          Key: imageFile.originalname,
+          Body: imageFile.buffer,
+          ContentEncoding: 'base64',
+          ContentDisposition: 'inline',
+          ContentType: 'image/jpeg',
+        };
+
+        const uploadCommand = new PutObjectCommand(uploadParams);
+        await s3.send(uploadCommand);
+
+        const objectUrl = `https://${bucketName}.s3.amazonaws.com/${imageFile.originalname}`;
+
+        // Luodaan uusi tapahtuma
+        const newEvent = new Event({
+          nimi: req.body.nimi,
+          kuvaus: req.body.kuvaus,
+          tapahtumapaikka: req.body.tapahtumapaikka,
+          genre: req.body.genre,
+          aloitusaika: req.body.aloitusaika,
+          aloituspvm: req.body.aloituspvm,
+          lopetusaika: req.body.lopetusaika,
+          lopetuspvm: req.body.lopetuspvm,
+          sijainti: req.body.sijainti,
+          kuvaUrl: objectUrl,
+        });
+
+        try {
+          //Tallennetaan tapahtuma events collectioniin
+          await newEvent.save();
+
+          //Lisätään tapahtuma users events alidokumenttiin, jotta tiedetään myöhemmin kuka on lisännyt tapahtuman
+          const user = await User.findByIdAndUpdate(
+            req.params.id,
+            {
+              $push: { events: newEvent },
+            },
+            { new: true } // Palautetaan päivitetty käyttäjä
+          );
+
+          // response jos lisääminen onnistuu
+          res.json({ event: newEvent, user });
+        } catch (error) {
+          //Virheenkäsittely, jos lisääminen ei onnistu
+          console.error('Error saving event or updating user:', error);
+          res
+            .status(500)
+            .json({ error: 'Error saving event or updating user' });
+        }
+      } else {
+        res.status(400).json({ error: 'No file provided' });
+      }
+    } catch (error) {
+      console.error('Error adding new event:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+
+`````
+
   - Nodemailerin käyttöönotto rekisteröinnin yhteydessä. Tarkoituksena, että käyttäjä vahvistaa käyttämänsä sähköpostiosoitteen klikkaamalla sähköpostiin tulevaa linkkiä rekisteröitymisen jälkeen, jolloin voi vasta käyttää tunnuksia kirjautumiseen. Toiminnallisuus on toteutettu käyttämällä MAP-tietorakennetta, jolloin käyttäjän tiedot varastoidaan väliaikaisesti siihen asti, kunnes sähköposti on vahvistettu.
 
 `````
