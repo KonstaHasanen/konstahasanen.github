@@ -16,7 +16,7 @@
 
 ### [Sakupe Oy] - [2020] - [2024]
 **Tehtävä:**
-- Asiakaspalvelu
+- Asiakaspalvelutehtävät Sairaala Novan vaateautomaatilla
 
 ---
 
@@ -34,7 +34,8 @@
 ## Projektit
 
 ### [Ticorporate] - [2023/8] - [2023/12]
-- **Sisältö:** Koulutusohjelmaan kuuluva noin 4kk mittainen sovelluskehitysprojekti, jossa tarkoituksena oli rakentaa toimiva sovelluskokonaisuus. Projekti toteutettiin viiden hengen ryhmissä Scrum projektinhallinta menetelmää hyödyntäen. Ryhmämme rakensi tapahtumasovelluksen, jossa vastasin backendistä, testauksesta sekä pilvipalveluista. 
+- **Sisältö:**
+  - Koulutusohjelmaan kuuluva noin 4kk mittainen sovelluskehitysprojekti, jossa tarkoituksena oli rakentaa toimiva sovelluskokonaisuus. Projekti toteutettiin viiden hengen ryhmissä Scrum projektinhallinta menetelmää hyödyntäen. Ryhmämme rakensi tapahtumasovelluksen, jossa vastasin backendistä, testauksesta sekä pilvipalveluista. 
 - **Käytetyt tekniikat ja työkalut:**
   - Backend toteutettiin käyttämllä node.js, express, MongoDB stäckkiä.
   - Pilvipalveluinfastruktuuri rakennettiin AWS:n palveluita hyödyntäen, joita olivat S3, Elastic Beanstalk sekä CloudFront.
@@ -44,6 +45,7 @@
   - Nodemailerin käyttö sähköpostin vahvistamiseen rekisteröinnin yhteydessä
   - Google autentikointi
   - Metodit tiedon manipuloimiseen
+  - Manuaalitestaustapahuman suunnittelu, seuraaminen sekä tulosten raportointi
 - **Koodi esimerkkejä oppimiskokemuksista:**
   - S3 bucketin käyttöönotto, jotta voidaan tallentaa kuvia tapahtuman lisäämisen yhteydessä. Toiminnallisuuden totetuttaminen vaati S3 bucketin konfiguraatiota AWS:n puolella sekä backendsovelluksessa. Backendsovellukseen luotiin awsConfig.js niminen tiedosto, jossa tehtiin uusi S3Client, jota voidaan myöhemmin käyttää tapahtuman lisäämismetodissa.
 
