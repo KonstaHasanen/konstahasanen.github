@@ -219,8 +219,93 @@ const UserController = {
   },
 
 `````
-  
+  - Google autentikointi sovellukseen
 
+`````  
+/*
+Tokenin validointi google-auth-library -kirjaston avulla. Toiminta esitelty
+osoitteessa: https://developers.google.com/identity/sign-in/web/backend-auth
+Tässä siis validoidaan frontendistä saatu Googlen token eli varmistetaan että
+oikea käyttäjä pääsee käyttämään backendiä.
+*/
+const { OAuth2Client } = require('google-auth-library');
+const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID; // Googlen clientId haetaan .env-filusta
+
+const client = new OAuth2Client(GOOGLE_CLIENT_ID);
+
+/* Frontendistä saadun Googlen idTokenin validointi Googlen palvelussa
+   ES2017:ssa esitelty async -funktio tekee tästä paljon mukavamman
+   näköisen verrattuna siihen jos olisi tehty callbackilla
+*/
+async function validateSocialToken(token) {
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: GOOGLE_CLIENT_ID,
+  });
+  const payload = ticket.getPayload();
+  const gmail = payload['email'];
+  console.log('saatiin sposti ' + gmail);
+  const userid = payload['sub'];
+  console.log('Saatiin userid: ' + userid);
+  return gmail; // gmail palautetaan promisena, jotta voidaan käyttää sitä myöhemmmin
+}
+
+module.exports = validateSocialToken;
+
+`````
+  - Autentikoinnin käyttö sisäänkirjautumisessa, authenticateGUser metodilla
+
+`````
+authenticateGUser: async function (req, res, next) {
+    try {
+      // Googlen tokeni frontendistä
+      const token = req.body.gtoken;
+
+      // Varmistetaan, että saatu token on oikea
+      const gmail = await validateSocialToken(token);
+
+      // Tarkistetaan, onko sähköpostilla jo käyttäjä kannassa
+      const existingUser = await User.findOne({ sposti: gmail });
+
+      if (existingUser) {
+        // Jos käyttäjä löytyy luodaan JWT token ja lähetetään se frontendiin
+        const user = existingUser;
+        const jwttoken = createToken(user);
+        res.json({
+          success: true,
+          message: 'Google user authenticated successfully',
+          token: jwttoken,
+        });
+      }
+      // Jos käyttäjää ei löydy, luodaan uusi newUser objekti seuraavilla tiedoilla
+      else {
+        const newUser = {
+          etunimi: 'Google',
+          sukunimi: 'User',
+          sposti: gmail,
+          salasana: 'googlepassword',
+          emailVerified: true,
+        };
+
+        // Tallennetaan käyttäjä tietokantaan
+        const createdUser = await User.create(newUser);
+
+        // Luodaan käyttäjälle JWT token ja lähetetään se frontendiin
+        const user = createdUser;
+        const jwttoken = createToken(user);
+        res.json({
+          success: true,
+          message: 'Google user authenticated successfully',
+          token: jwttoken,
+        });
+      }
+    } catch (error) {
+      // Virheenkäsittely, jos autenktikointi jostain syystä epäonnistuu
+      console.error('Google authentication failed:', error);
+      res.status(500).send('Google authentication failed.');
+    }
+  },
+`````
 
 ---
 
