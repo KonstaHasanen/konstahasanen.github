@@ -306,20 +306,3 @@ authenticateGUser: async function (req, res, next) {
     }
   },
 `````
-
----
-
-## Sertifikaatit
-
-- [Sertifikaatin nimi] - [Suoritusvuosi]
-- [Toinen sertifikaatin nimi] - [Suoritusvuosi]
-
----
-
-## Kielitaito
-
-- **Suomi:** Äidinkieli
-- **Englanti:** Erinomainen
-- **Ruotsi:** Perustaso
-
----
