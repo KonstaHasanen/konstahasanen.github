@@ -306,3 +306,6 @@ authenticateGUser: async function (req, res, next) {
     }
   },
 `````
+  - Järjestimme manuaalitestaustapahtuman mobiilisovelluksen käytettävyyden testaamista varten. Suunnittelin ennen testaustapahtumaa taskeja, joita testihenkilön tulisi suorittaa testaustapahtumassa. Testaustapahtuman
+    edetessä kirjasin ylös testihenkilön havaintoja mobiilisovelluksen käytetävyyteen liityen, jotta voisimme parantaa käytettävyyttä. Lopuksi tein tapahtumasta vielä raportin, jossa huomiot nousi esiin, jonka toimitin
+    mobiilisovelluksen kehityksestä vastaavalle henkilölle.
