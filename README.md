@@ -209,6 +209,33 @@ const UserController = {
       res.status(500).send('User registration failed.');
     }
   },
+  //Spostin vahvistaminen
+  confirmEmail: async function (req, res) {
+    try {
+      const confirmationCode = req.params.confirmationCode;
+
+      // Tarkista, onko vahvistustunniste voimassa
+      if (!temporaryUserMap.has(confirmationCode)) {
+        return res.status(400).send('Vahvistustunniste ei ole voimassa.');
+      }
+
+      // Haetaan käyttäjä väliaikaisesta tallennuspaikasta
+      const user = temporaryUserMap.get(confirmationCode);
+
+      // Merkitse käyttäjän sähköposti vahvistetuksi
+      user.emailVerified = true;
+
+      // Tallenna käyttäjä pysyvään tietokantaan
+      await User.create(user);
+
+      // Poista käyttäjä väliaikaisesta tallennuspaikasta
+      temporaryUserMap.delete(confirmationCode);
+
+      res.send('Sähköposti on vahvistettu onnistuneesti.');
+    } catch (error) {
+      console.error('Sähköpostin vahvistus epäonnistui:', error);
+      res.status(500).send('Sähköpostin vahvistus epäonnistui.');
+    }
 
 `````
   - Google autentikointi sovellukseen
