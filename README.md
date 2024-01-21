@@ -2,21 +2,12 @@
 
 ---
 
-## Koulutus
+## Ticorporate - FindE
+Ryhmämme rakensi tapahtumasovelluksen nimeltä FindE, jonka tarkoituksena oli tehdä tapahtumien löytämisestä käyttäjälle vaivattomampaa. Sovellukseen kuului mobiiliversio, joka oli tarkoitettu käyttäjille, jotka
+etsivät tapahtumia sekä työpöytä versio, joka taas oli tarkoitettu tapahtumien järjestäjiä varten.
 
-### Lukio [2019] - [2021]
-**Schildtin lukio**
+Vastuualueisiini projektissa kuului backend sovelluksen rakentaminen, sovelluskokonaisuuden testaaminen sekä pilvipalveluiden käyttöönotto. 
 
-### Tietojenkäsittely Tradenomi [2021] - [2024]
-**Jyväskylän ammattikorkeakoulu**
-
----
-
-## Työkokemus
-
-### [Sakupe Oy] - [2020] - [2024]
-**Tehtävä:**
-- Asiakaspalvelutehtävät Sairaala Novan vaateautomaatilla
 
 ---
 
@@ -31,7 +22,7 @@
 
 ---
 
-## Projektit
+## Projekti FindE
 
 ### [Ticorporate] - [2023/8] - [2023/12]
 - **Sisältö:**
@@ -45,6 +36,7 @@
   - Nodemailerin käyttö sähköpostin vahvistamiseen rekisteröinnin yhteydessä
   - Google autentikointi
   - Metodit tiedon manipuloimiseen
+  - Scrum prosessin ymmärtäminen käytännössä
   - Manuaalitestaustapahuman suunnittelu, seuraaminen sekä tulosten raportointi
 - **Koodi esimerkkejä oppimiskokemuksista:**
   - S3 bucketin käyttöönotto, jotta voidaan tallentaa kuvia tapahtuman lisäämisen yhteydessä. Toiminnallisuuden totetuttaminen vaati S3 bucketin konfiguraatiota AWS:n puolella sekä backendsovelluksessa. Backendsovellukseen luotiin awsConfig.js niminen tiedosto, jossa tehtiin uusi S3Client, jota voidaan myöhemmin käyttää tapahtuman lisäämismetodissa.
