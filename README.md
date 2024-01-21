@@ -11,9 +11,9 @@ Vastuualueisiini projektissa kuului backend sovelluksen rakentaminen, sovellusko
 
 ---
 
-## Taidot
+## Osaaminen
 
-- **Ohjelmointikielet:** JavaScript
+- **Ohjelmointikielet:** JavaScript, TypeScript
 - **Frontend-kehitys:** HTML, CSS, Svelte
 - **Backend-kehitys:** Node.js, Express
 - **Tietokannat:** MongoDB, MySQL
